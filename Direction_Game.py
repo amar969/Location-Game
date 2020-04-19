@@ -9,14 +9,23 @@ locations = {
     5: "You are in the forest"
 }
 
-exits = [
-    {"Q": 0},
-    {"W": 2, "E": 3, "N": 5, "S":4, "Q": 0},
-    {"N": 5, "Q": 0},
-    {"W": 1, "Q": 0},
-    {"N": 1, "W": 2, "Q": 0},
-    {"W": 2, "S": 1, "Q": 0}
-]
+exits = {
+    0: {"Q": 0},
+    1: {"W": 2, "E": 3, "N": 5, "S":4, "Q": 0},
+    2: {"N": 5, "Q": 0},
+    3: {"W": 1, "Q": 0},
+    4: {"N": 1, "W": 2, "Q": 0},
+    5 :{"W": 2, "S": 1, "Q": 0}
+}
+
+vocabulary = {
+    "QUIT" : "Q",
+    "NORTH": "N",
+    "SOUTH": "S",
+    "EAST" : "E",
+    "WEST" : "W",
+}
+
 
 loc = 1
 while True:
@@ -29,6 +38,13 @@ while True:
 
     direction = input("Available exits are " + availableExits + " ").upper()
     print()
+
+    # Parse the user input, using our vocabulary dictionary if necessary
+    if len(direction) > 1:  #more than one letter if necessary
+        for word in vocabulary:
+            if word in direction:
+                direction = vocabulary[word]
+
     if direction in exits[loc]:
         loc = exits[loc][direction]
     else:
